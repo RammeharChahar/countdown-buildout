@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Countdown.css';
+import { Howl } from 'howler';
 
 function Countdown() {
   const [isCounterRunning, setIsCounterRunning] = useState(false);
@@ -12,6 +13,22 @@ function Countdown() {
   });
   const [isCounterOver, setIsCounterOver] = useState(false);
   const [selectedDaysError, setSelectedDaysError] = useState(false);
+
+   useEffect(() =>{
+    const getLocalData = localStorage.getItem('counter');
+    const selectedDate = localStorage.getItem('selectedDate');
+    if(getLocalData){
+      const getCounter = JSON.parse(getLocalData);
+      setIsCounterRunning(true);
+      setSelectedDateTime(selectedDate);
+      setTimeRemaining( 
+        getCounter.days,
+        getCounter.hours,
+        getCounter.minutes,
+        getCounter.seconds)
+    }
+   },[])
+
 
   useEffect(() => {
     let timer;
@@ -46,9 +63,20 @@ function Countdown() {
           seconds
         });
 
+        const localStorageObject = {
+          days : days,
+          hours : hours,
+          minutes : minutes,
+          seconds : seconds,
+        }
+
         if (days <= 99) {
           setSelectedDaysError(false);
         }
+
+        const timeRemainingObject = JSON.stringify(localStorageObject);
+        localStorage.setItem('counter', timeRemainingObject);
+
       } else {
         clearInterval(timer);
         setIsCounterRunning(false);
@@ -66,6 +94,7 @@ function Countdown() {
   const handleTimeChange = (event) => {
     const dateTimeValue = event.target.value;
     setSelectedDateTime(dateTimeValue);
+    localStorage.setItem('selectedDate', event.target.value);
 
     const selectedDate = new Date(dateTimeValue);
     const now = new Date();
@@ -86,6 +115,19 @@ function Countdown() {
     setIsCounterOver(false); 
   };
 
+  const handleCounterBtn = () =>{
+    if(isCounterRunning){
+      setTimeRemaining({
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0
+      });
+      localStorage.setItem('counter', '');
+      localStorage.setItem('selectedDate', '');
+    }
+  }
+
   return (
     <div className="countdown_wrapper">
       <form onSubmit={toggleCounter} className="form_wrap">
@@ -96,7 +138,7 @@ function Countdown() {
           id="countdowntime"
           name="countdowntime"
         />
-        <button type="submit" className="countdown_start_btn">
+        <button type="submit" onClick={handleCounterBtn} className="countdown_start_btn">
           {isCounterRunning ? 'Cancel' : 'Start Timer'}
         </button>
       </form>

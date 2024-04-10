@@ -22,6 +22,7 @@
    font-size: 17px;
    border: 1px solid white;
    cursor: pointer;
+   
 }
 .counter_wrapper{
     display: flex;
@@ -61,3 +62,70 @@
     font-size: 15px;
     font-weight: bolder;
 }
+
+@media only screen and (max-width: 480px) {
+    .countdown_wrapper{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    .countdown_picker{
+        padding:  8px;
+        border-radius: 7px;
+        border: 1px solid white;
+        background: transparent;
+        color: white;
+        font-size: 10px;
+    }
+    .countdown_start_btn{
+       padding-inline: 20px;
+       padding-block: 10px;
+       width: max-content;
+       background: transparent;
+       border-radius: 10px;
+       color: white;
+       font-size: 10px;
+       border: 1px solid white;
+       cursor: pointer;
+       
+    }
+    .counter_wrapper{
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+    }
+    .counter_div{
+        width: 70px;
+        height: 60px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        background-image: linear-gradient(to right top, #f40dc3, #b27eff, #66b0ff, #60d0ff, #a3e6f4);
+    }
+    .counter_content{
+        margin: 0;
+        font-size: 25px;
+        font-weight: bolder;
+        color: white;
+    }
+    .counter_content_1{
+        margin: 0;
+        font-size: 15px;
+        font-weight: bolder;
+        color: rgb(225, 207, 207);
+    }
+    .form_wrap{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    .counter_text{
+        color: #cc06bc;
+        font-size: 15px;
+        font-weight: bolder;
+    }
+  }
